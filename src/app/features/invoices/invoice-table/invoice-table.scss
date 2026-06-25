@@ -1,0 +1,21 @@
+.invoice-table {
+  width: 100%;
+}
+
+.invoice-row {
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  &.selected {
+    background: rgba(25, 118, 210, 0.12);
+  }
+}
+
+.empty-state {
+  padding: 16px;
+  opacity: 0.7;
+  text-align: center;
+}

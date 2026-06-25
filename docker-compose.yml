@@ -1,0 +1,11 @@
+name: monomarket-web
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mono-market-web
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-4200}:80"

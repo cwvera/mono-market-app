@@ -1,0 +1,41 @@
+<div class="summary-grid">
+  <mat-card class="summary-card info">
+    <mat-card-content>
+      <span class="icon-badge"><mat-icon fontSet="material-symbols-outlined">receipt_long</mat-icon></span>
+      <div class="summary-value">{{ summary().total }}</div>
+      <div class="summary-label">Total facturas</div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="summary-card warn">
+    <mat-card-content>
+      <span class="icon-badge"><mat-icon fontSet="material-symbols-outlined">notifications</mat-icon></span>
+      <div class="summary-value">{{ summary().firstReminder }}</div>
+      <div class="summary-label">Primer recordatorio</div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="summary-card second">
+    <mat-card-content>
+      <span class="icon-badge"><mat-icon fontSet="material-symbols-outlined">notification_important</mat-icon></span>
+      <div class="summary-value">{{ summary().secondReminder }}</div>
+      <div class="summary-label">Segundo recordatorio</div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="summary-card danger">
+    <mat-card-content>
+      <span class="icon-badge"><mat-icon fontSet="material-symbols-outlined">block</mat-icon></span>
+      <div class="summary-value">{{ summary().deactivated }}</div>
+      <div class="summary-label">Desactivadas</div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="summary-card success">
+    <mat-card-content>
+      <span class="icon-badge"><mat-icon fontSet="material-symbols-outlined">task_alt</mat-icon></span>
+      <div class="summary-value">{{ summary().paid }}</div>
+      <div class="summary-label">Pagadas</div>
+    </mat-card-content>
+  </mat-card>
+</div>

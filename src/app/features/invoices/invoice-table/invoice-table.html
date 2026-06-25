@@ -1,0 +1,60 @@
+<table mat-table [dataSource]="invoices()" class="mat-elevation-z1 invoice-table">
+  <ng-container matColumnDef="invoiceNumber">
+    <th mat-header-cell *matHeaderCellDef>Factura</th>
+    <td mat-cell *matCellDef="let item">{{ item.invoiceNumber }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="clientIdentification">
+    <th mat-header-cell *matHeaderCellDef>Cliente</th>
+    <td mat-cell *matCellDef="let item">{{ item.clientIdentification }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef>Monto</th>
+    <td mat-cell *matCellDef="let item">{{ item.amount | currency }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="issueDate">
+    <th mat-header-cell *matHeaderCellDef>Emisión</th>
+    <td mat-cell *matCellDef="let item">{{ item.issueDate | date: 'dd/MM/yyyy' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef>Estado</th>
+    <td mat-cell *matCellDef="let item">
+      <span class="status-chip" [class]="statusClass(item.status)">{{ item.status | invoiceStatusLabel }}</span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="reminderCount">
+    <th mat-header-cell *matHeaderCellDef>Recordatorios</th>
+    <td mat-cell *matCellDef="let item">{{ item.reminderCount }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Detalle</th>
+    <td mat-cell *matCellDef="let item">
+      <button
+        mat-icon-button
+        matTooltip="Ver correos e intentos"
+        color="primary"
+        (click)="$event.stopPropagation(); select.emit(item)"
+      >
+        <mat-icon fontSet="material-symbols-outlined">visibility</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    class="invoice-row"
+    [class.selected]="row.id === selectedInvoiceId()"
+    (click)="select.emit(row)"
+  ></tr>
+</table>
+
+@if (invoices().length === 0) {
+  <p class="empty-state">No hay facturas que coincidan con el filtro.</p>
+}

@@ -1,0 +1,51 @@
+<mat-card class="panel-card">
+  <mat-card-header>
+    <mat-card-subtitle class="panel-hint">Selecciona un correo para ver sus intentos de envío.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    @if (sendMails$ | async; as sendMails) {
+      @if (sendMails.length === 0) {
+        <p class="empty-state">Esta factura todavía no tiene correos registrados.</p>
+      } @else {
+        <table mat-table [dataSource]="sendMails" class="mat-elevation-z0 send-mails-table">
+          <ng-container matColumnDef="subject">
+            <th mat-header-cell *matHeaderCellDef>Asunto</th>
+            <td mat-cell *matCellDef="let mail">{{ mail.subject }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="toEmail">
+            <th mat-header-cell *matHeaderCellDef>Enviado a</th>
+            <td mat-cell *matCellDef="let mail">{{ mail.toName }} &lt;{{ mail.toEmail }}&gt;</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Estado</th>
+            <td mat-cell *matCellDef="let mail">
+              <span class="status-chip" [class]="statusClass(mail.status)">
+                {{ mail.status | sendMailStatusLabel }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalAttempts">
+            <th mat-header-cell *matHeaderCellDef>Intentos</th>
+            <td mat-cell *matCellDef="let mail">{{ mail.totalAttempts }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastAttemptAt">
+            <th mat-header-cell *matHeaderCellDef>Último intento</th>
+            <td mat-cell *matCellDef="let mail">{{ mail.lastAttemptAt | date: 'short' }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            class="mail-row"
+            (click)="select(row)"
+          ></tr>
+        </table>
+      }
+    }
+  </mat-card-content>
+</mat-card>

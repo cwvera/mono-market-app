@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.flow-tabs {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  background: var(--mat-sys-surface);
+
+  // [mat-stretch-tabs]="false" ya evita que las pestañas se repartan el
+  // ancho disponible; fijamos un mínimo para que "Facturas" no cambie de
+  // tamaño cuando aparecen "Correos"/"Intentos".
+  ::ng-deep .mat-mdc-tab {
+    min-width: 180px;
+  }
+}
+
+@keyframes tab-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.tab-label-new {
+  animation: tab-blink 0.5s ease-in-out 3;
+}
+
+.tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.panel-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-title {
+  margin: 0;
+}
+
+.filters-card {
+  background: #f7f9fc;
+}
+
+.filters-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  mat-form-field {
+    flex: 1 1 240px;
+  }
+}

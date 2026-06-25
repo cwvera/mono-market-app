@@ -1,0 +1,47 @@
+<mat-card class="panel-card">
+  <mat-card-header>
+    <mat-card-subtitle class="panel-hint">Detalle de cada intento de envío para este correo.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    @if (attempts$ | async; as attempts) {
+      @if (attempts.length === 0) {
+        <p class="empty-state">Este correo todavía no registra intentos.</p>
+      } @else {
+        <table mat-table [dataSource]="attempts" class="mat-elevation-z0">
+          <ng-container matColumnDef="attemptNumber">
+            <th mat-header-cell *matHeaderCellDef>Intento</th>
+            <td mat-cell *matCellDef="let log">#{{ log.attemptNumber }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Estado</th>
+            <td mat-cell *matCellDef="let log">
+              <span class="status-chip" [class]="statusClass(log.status)">
+                <mat-icon fontSet="material-symbols-outlined">{{ statusIcon(log.status) }}</mat-icon>
+                {{ log.status | sendMailLogStatusLabel }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="durationMs">
+            <th mat-header-cell *matHeaderCellDef>Duración</th>
+            <td mat-cell *matCellDef="let log">{{ log.durationMs }} ms</td>
+          </ng-container>
+
+          <ng-container matColumnDef="sentAt">
+            <th mat-header-cell *matHeaderCellDef>Fecha</th>
+            <td mat-cell *matCellDef="let log">{{ log.sentAt | date: 'short' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="errorMessage">
+            <th mat-header-cell *matHeaderCellDef>Error</th>
+            <td mat-cell *matCellDef="let log">{{ log.errorMessage || '—' }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      }
+    }
+  </mat-card-content>
+</mat-card>

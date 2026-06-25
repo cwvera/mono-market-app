@@ -1,0 +1,12 @@
+<header class="app-header">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <mat-icon fontSet="material-symbols-outlined">storefront</mat-icon>
+    <span class="app-title">MonoMarket · Recordatorios de facturas</span>
+  </mat-toolbar>
+
+  @if (loading.isLoading()) {
+    <mat-progress-bar mode="indeterminate" class="global-loading-bar" />
+  }
+</header>
+
+<router-outlet />

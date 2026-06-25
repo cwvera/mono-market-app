@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="page-header">
+    <h2 class="page-title">Resumen de facturas</h2>
+    <button mat-raised-button color="primary" (click)="refresh()">
+      <mat-icon fontSet="material-symbols-outlined">refresh</mat-icon>
+      Refrescar
+    </button>
+  </div>
+
+  <app-summary-cards [invoices]="invoices()" />
+
+  <mat-card class="filters-card">
+    <mat-card-content>
+      <form [formGroup]="filterForm" class="filters-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Identificación del cliente</mat-label>
+          <input matInput formControlName="clientIdentification" placeholder="NIT / Cédula" />
+          <mat-icon matPrefix fontSet="material-symbols-outlined">search</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="status">
+            @for (option of statusOptions; track option.value) {
+              <mat-option [value]="option.value">{{ option.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-tab-group
+    class="flow-tabs"
+    animationDuration="200ms"
+    [mat-stretch-tabs]="false"
+    mat-align-tabs="start"
+    [selectedIndex]="activeTab()"
+    (selectedIndexChange)="onTabChange($event)"
+  >
+    <mat-tab>
+      <ng-template mat-tab-label>1 · Facturas</ng-template>
+      <div class="tab-panel">
+        <mat-card class="panel-card">
+          <mat-card-header>
+            <mat-card-subtitle class="panel-hint">Selecciona una factura para ver sus correos enviados.</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <app-invoice-table
+              [invoices]="invoices()"
+              [selectedInvoiceId]="selectedInvoiceId()"
+              (select)="onSelectInvoice($event)"
+            />
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    @if (selectedInvoice(); as invoice) {
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span class="tab-label-new">2 · Correos · {{ invoice.invoiceNumber }}</span>
+        </ng-template>
+        <div class="tab-panel">
+          <app-sent-emails-panel />
+        </div>
+      </mat-tab>
+    }
+
+    @if (selectedSendMail()) {
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span class="tab-label-new">3 · Intentos de envío</span>
+        </ng-template>
+        <div class="tab-panel">
+          <app-email-attempts-panel />
+        </div>
+      </mat-tab>
+    }
+  </mat-tab-group>
+</div>

@@ -1,0 +1,127 @@
+
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Slightly off-white background so white mat-cards stand out with depth
+  // instead of blending into the page.
+  background-color: #eef1f7;
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+
+/* Mensaje sutil de "qué hacer a continuación" en el header de cada panel.
+   Mat-card-subtitle aplica su propio tipo "title-medium" (16px/500) con la
+   misma especificidad que una sola clase; se combinan ambas clases para
+   ganar la pelea de especificidad sin necesitar !important. */
+.mat-mdc-card-subtitle.panel-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: #757575;
+}
+
+/* Status chips, reused across invoice/email/attempt tables */
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.status-pending {
+  background: #e8eaf6;
+  color: #3949ab;
+}
+
+.status-paid {
+  background: #e3f6e8;
+  color: #2e7d32;
+}
+
+.status-first-reminder {
+  background: #fff4e0;
+  color: #b26a00;
+}
+
+.status-second-reminder {
+  background: #ffe6d6;
+  color: #c0560f;
+}
+
+.status-deactivated {
+  background: #fdeaea;
+  color: #c62828;
+}
+
+.status-reminder {
+  background: #eef0f4;
+  color: #555;
+}
+
+.send-mail-status-pending {
+  background: #e8eaf6;
+  color: #3949ab;
+}
+
+.send-mail-status-sent {
+  background: #e3f6e8;
+  color: #2e7d32;
+}
+
+.send-mail-status-failed {
+  background: #fdeaea;
+  color: #c62828;
+}
+
+.send-mail-status-max-retries {
+  background: #f3e0f7;
+  color: #7b1fa2;
+}
+
+.status-chip-success {
+  background: #e3f6e8;
+  color: #2e7d32;
+}
+
+.status-chip-error {
+  background: #fdeaea;
+  color: #c62828;
+}
+
+/* You can add global styles to this file, and also import other style files */
