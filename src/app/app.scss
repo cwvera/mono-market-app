@@ -1,0 +1,19 @@
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.app-toolbar {
+  gap: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.global-loading-bar {
+  height: 3px;
+}
